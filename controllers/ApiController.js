@@ -5,7 +5,7 @@ const Group = require('../models/groupUserModel')
 const MediaContent = require('../models/mediaModel')
 const Users = require('../models/userModel')
 const socket = require('../socket')
-
+const mongoose = require('mongoose')
 const getGroup = async (group) => {
     return Group.findById(group).exec()
     .then(toGroup => {
@@ -26,7 +26,6 @@ const getImage = (req) => {
         return []
     }
 }
-//TODO sua video
 const getVideo = (req) => {
     let {video} = req.body
     if (video == undefined || `${video}` == '') {
@@ -49,8 +48,7 @@ const getPost = async (postID) => {
     })
     .catch(error => {throw error})
 }
-const mongoose = require('mongoose')
-const getMediaContent = async (mediaIDList) => {
+const getMC = async (mediaIDList) => {
     let mediaIDs = [].concat(mediaIDList)
     if (Array.isArray(mediaIDs) && mediaIDs.length > 0){
         let idArray = mediaIDs.map(m => mongoose.Types.ObjectId(m))
@@ -66,6 +64,7 @@ const getMediaContent = async (mediaIDList) => {
         return []
     }
 }
+const {groupOtherName, studentRole} = require('../config')
 module.exports = {
     Post : {
         create: async (req, res) => {
@@ -73,6 +72,7 @@ module.exports = {
 
             try {
                 let toGroup = await getGroup(group)
+                if (toGroup.name != groupOtherName && req.user.role == studentRole) throw 'Người dùng hiện tại không có quyền đăng bài vào nhóm này'
                 let image = await getImage(req)
                 let videos = await getVideo(req)
                 let postItem = new Post({user: req.user, toGroup, title, content, mediaContent: [...image, ...videos]})
@@ -94,7 +94,7 @@ module.exports = {
                 let toGroup = await getGroup(group)
                 let image = await getImage(req)
                 let videos = await getVideo(req)
-                let oldContent = await getMediaContent(oldMediaContent)
+                let oldContent = await getMC(oldMediaContent)
                 let result = await Post.updateOne(post, {user: req.user, toGroup, title, content, mediaContent: [...image, ...videos, ...oldContent]})
                 if(result.nModified == 0) throw 'Nội dung chưa được cập nhật !'
                 return res.json({success: true, result})
@@ -188,6 +188,31 @@ module.exports = {
             console.log(error.toString())
             return res.json({success: false, msg: error.toString()})
         }
+    },
+    MC: {
+        getAllMContent: async (req, res) => {
+            try {
+                let postMC = await Post.find({user: req.user}).populate('mediaContent').select('mediaContent')
+                let commentMC = await Comment.find({user: req.user}).populate('mediaContent').select('mediaContent')
+                let result = postMC.concat(commentMC).flatMap(m => m['mediaContent'])
+                return res.json({success: true, result})
+            } catch (e) {
+                return res.json({success: false, msg: e.toString()})
+            }
+        },
+        deleteMediaContent: async (req, res) => {
+            let {idMediaContent} = req.params
+            try {
+                if (idMediaContent == undefined) throw 'Không tìm thấy Media ID'
+                let mc = (await getMC(idMediaContent)).pop()
+                let result = await MediaContent.deleteOne(mc)
+                console.log('Đã thực hiện xóa')
+                console.log(result)
+                return res.json({success: true, result})
+            } catch (e) {
+                return res.json({success: false, msg: e.toString()})
+            }
+        },
     },
     getGroups: async (req, res) => {
         return Group.find().exec()

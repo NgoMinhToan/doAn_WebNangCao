@@ -1,3 +1,9 @@
+const instructorRole = 'Instructor'
+const groupOtherName = 'other'
+const studentRole = 'Student'
+const defaultFaculty = 'Khoa Công nghệ thông tin'
+const allowMailDomain = '@student.tdtu.edu.vn'
+const defaultAvatar = `/images/default.png`
 module.exports = {
     adminAccount: {
         name: 'Admin',
@@ -5,8 +11,14 @@ module.exports = {
         role: 'Admin',
         email: 'admin@email.com',
     },
+    defaultAvatar,
+    allowMailDomain,
+    defaultFaculty,
+    instructorRole,
+    groupOtherName,
+    studentRole,
     groupUser: [
-        {name: 'other'},
+        {name: groupOtherName, avatar: './image/logo.png'},
         {name: 'Phòng Công tác học sinh sinh viên (CTHSSV)'},
         {name: 'Phòng Đại học'},
         {name: 'Phòng Sau đại học'},

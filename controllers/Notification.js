@@ -9,14 +9,17 @@ const notify = (req, res, uri, {code, error} )=>{
 }
 module.exports = {
     index: (req, res) => {
-        return res.render('thongbao')
+        let success = req.flash('success')
+        let msg = req.flash('msg')
+        return res.render('faculty', {data: {...req.session.passport.user, 
+            ...req.user._doc}, flash: {success, msg}})
     },
-    flashData: (req, res, next) => {
-        let {name, email} = req.body
-        req.flash('email', email || '')
-        req.flash('name', name || '')
-        next()
-    },
+    // flashData: (req, res, next) => {
+    //     let {name, email} = req.body
+    //     req.flash('email', email || '')
+    //     req.flash('name', name || '')
+    //     next()
+    // },
     
 
     

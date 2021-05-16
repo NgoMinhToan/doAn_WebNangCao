@@ -22,3 +22,17 @@ $(document).ready(function() {
             //uploadUrl: '/site/file-upload-single '
     });
 });
+
+
+// window.onload = async () => {
+//     let data = getData()
+//     let allPost = await getAllPost(data.token)
+//     console.log(allPost)
+//     // PostList
+//     allPost.forEach(e => {
+//         let post = document.createElement('div')
+//         post.className = e._id
+
+//         PostList.appendChild(post)
+//     })
+// }

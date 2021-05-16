@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Thay đổi mật khẩu</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arbutus" rel="stylesheet">
+</head>
+<link href="../../css/style.css" rel="stylesheet" />
+
+<body>
+
+    <div class="container">
+        <form action="./editPassword" class="form-login " method="POST" autocomplete="on ">
+            <input name="token" value="<%= data.token %>" style="display: none;" type="text">
+            <img src="./../../<%= data.avatar%>" alt="Avatar" class="avatar">
+
+            <hr>
+            <div class="profiledata ">
+                <h5 class="profiledata_1 label_editprofile_phongkhoa">Mật khẩu: </h5>
+                <input class="profiledata_1 input_editprofile_phongkhoa" type=" password " id="" name="password"><br><br>
+            </div>
+            <div class="profiledata ">
+                <h5 class="profiledata_1 label_editprofile_phongkhoa">Nhập lại mật khẩu : </h5>
+                <input class="profiledata_1 input_editprofile_phongkhoa" type=" password " id="" name="rePassword"><br><br>
+            </div>
+            <div class="form-group ">
+                <button type="submit " class="btn btn-info btn-editprofile ">Xác nhận thay đổi</button>
+            </div>
+            <br>
+            <br>
+            <hr>
+            <% if(locals.flash.success && flash.success.length > 0) { %>
+                <% if (flash.success == -1){ %>
+                    <div class="alert alert-danger">
+                    <strong>Error! </strong>
+                <% } else { %>
+                    <div class="alert alert-success">
+                    <strong>Success! </strong> 
+                <% } %>
+                <%= flash.msg %>.
+                </div>
+            <% } %>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

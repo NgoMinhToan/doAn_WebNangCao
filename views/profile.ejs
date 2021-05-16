@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Trang ca nhan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arbutus" rel="stylesheet">
+</head>
+<link href="../css/style.css" rel="stylesheet" />
+
+<body>
+
+    <div class="container">
+        <form action=" " class="form-login " method="POST " autocomplete="on ">
+            <img src="./../../<%=data.avatar%>" alt="Avatar" class="avatar">
+            <hr>
+            <div class="profiledata ">
+                <h5 class="profiledata_1 label_editprofile_phongkhoa">Tên </h5>
+                <h5 class="profiledata_1 "> <%= data.name%></h5>
+            </div>
+            <br><br>
+            <div class="profiledata ">
+                <h5 class="profiledata_1 label_editprofile_phongkhoa">Email </h5>
+                <h5 class="profiledata_1 "> <%= data.email%></h5>
+            </div>
+            <br><br>
+            <% if(locals.data.class){ %>
+                <div class="profiledata ">
+                    <h5 class="profiledata_1 label_editprofile_phongkhoa">Lớp </h5>
+                    <h5 class="profiledata_1 "> <%=data.class%></h5>
+                </div>
+                <br><br>
+            <% } %>
+            <% if(locals.data.faculty){ %>
+                <div class="profiledata ">
+                    <h5 class="profiledata_1 label_editprofile_phongkhoa">Khoa </h5>
+                    <h5 class="profiledata_1 "> <%= data.faculty %></h5>
+                </div>
+                <br><br>
+            <% } %>
+            <hr>
+            <div class="form-group">
+                <a type="button" href="./logout" class="btn btn-profile btn-secondary btn-dangnhap">Đăng xuất</a>
+                <a type="button" href="./profile/edit" class="btn btn-profile btn-info btn-dangnhap">Chỉnh sửa thông tin</a>
+            </div>
+            <br><br>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

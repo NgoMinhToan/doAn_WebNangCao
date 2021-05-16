@@ -24,7 +24,7 @@
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapse out">
                 <li>
-                    <a href="#">
+                    <a href="">
                         <i class="fa fa-dashboard fa-lg"></i> Trang chủ
                     </a>
                 </li>
@@ -32,13 +32,12 @@
                     <a href="#"><i class="fa fa-gift fa-lg"></i> Phân loại thông báo <span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="products">
-                    <li><a href="#">Phòng ban</a></li>
-                    <li><a href="#">Chủ đề</a></li>
-                    <li><a href="#">Tất cả thông báo</a></li>
+                    <li><a href="./notification">Phòng ban</a></li>
+                    <li><a href="https://stdportal.tdtu.edu.vn">Cổng thông tin</a></li>
                 </ul>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-users fa-lg"></i> Cổng thông tin
+                    <a href="./user/profile">
+                        <i class="fa fa-users fa-lg"></i> Thông tin cá nhân
                     </a>
                 </li>
             </ul>
@@ -52,16 +51,14 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                         <div class="form-group">
-                            <textarea class="form-control" id="message" rows="3"
-                                placeholder="Nhập để đăng gì đó"></textarea>
+                            <textarea class="form-control" id="message" rows="3" placeholder="Nhập để đăng gì đó"></textarea>
                         </div>
                     </div>
                 </div>
                 <form action="/action_page.php" class="btns-post">
                     <div class="btn-toolbar justify-content-between">
                         <div class="btn-group">
-                            <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                            <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
                                     class="fa fa-globe"></i></button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
                                 <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> CTHSSV</a>
@@ -77,8 +74,7 @@
                                 <i class="material-icons">&#xe410;</i>
                             </i>
                             <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -93,10 +89,8 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary"
-                                                data-dismiss="modal">Save</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
                                         </div>
                                     </div>
                                 </div>
@@ -108,6 +102,8 @@
             </div>
         </div>
         <!-- Post -->
+        <div id="PostList"></div>
+
         <div class="card gedf-card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
@@ -122,8 +118,7 @@
                     <!-- Tuy chon cho mo post -->
                     <div>
                         <div class="dropdown">
-                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-h"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
@@ -142,6 +137,68 @@
 
                 <p class="card-text">
                     Hôm nay giỗ tổ nhưng đéo được nghỉ
+                </p>
+            </div>
+            <!-- Phan comment -->
+            <div class="card-footer">
+                <button type="button" class="btn" data-toggle="collapse" data-target="#demo"><a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a></button>
+                <div id="demo" class="collapse">
+                    <hr />
+                    <div class="post-comment">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="profile-photo-sm">
+                        <p class="noidung_comment"><a href="timeline.html" class="profile-link">Diana </a><i class="em em-laughing"></i> Oke OKe </p>
+                    </div>
+                    <div class="post-comment">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="profile-photo-sm">
+                        <p><a href="timeline.html" class="profile-link">John</a> Hôm nay giỗ tổ nhưng đéo được nghỉ à ? </p>
+                    </div>
+                    <hr />
+                    <div class="post-comment">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="profile-photo-sm comment_avt">
+                        <input type="text" class="form-control comment_input" placeholder="Post a comment">
+                        <button type="submit" class="btn btn-profile btn-info btn-commentsibmit">Gửi</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- Post nhung video Youtube-->
+        <div class="card gedf-card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="mr-2">
+                            <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                        </div>
+                        <div class="ml-2">
+                            <div class="h7 text-muted">Đặng Minh Thắng</div>
+                        </div>
+                    </div>
+                    <!-- Tuy chon cho mo post -->
+                    <div>
+                        <div class="dropdown">
+                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                                <a class="dropdown-item" href="#edit">Chỉnh sửa</a>
+                                <a class="dropdown-item" href="#delete">Xoá</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
+                <a class="card-link" href="#">
+                    <h5 class="card-title">Thong Bao</h5>
+                </a>
+
+                <p class="card-text">
+                    Hôm nay giỗ tổ nhưng đéo được nghỉ
+                    <br><br>
+                    <embed width="100%" height="450" src="https://www.youtube.com/embed/EFB8k6INRg0">
+
                 </p>
             </div>
             <div class="card-footer">
@@ -179,20 +236,136 @@
             </div>
         </div>
     </div>
-    <p class="data" data-id="<%= id %>"></p>
-    <p class="data" data-token="<%= token %>"></p>
+    <% if(locals.data){ %>
+        <p class="data" data-id="<%= data.id %>"></p>
+        <p class="data" data-token="<%= data.token %>"></p>
+        <p class="data" data-refreshToken="<%= data.refreshToken %>"></p>
+        <p class="data" data-name="<%= data.name %>"></p>
+        <p class="data" data-nickName="<%= data.nickName %>"></p>
+        <p class="data" data-avatar="<%= data.avatar %>"></p>
+        <p class="data" data-role="<%= data.role %>"></p>
+        <p class="data" data-email="<%= data.email %>"></p>
+    <% } %>
+    
+    <% if(locals.flash){ %>
+        <p class="data" data-success="<%= flash.success %>"></p>
+        <p class="data" data-msg="<%= flash.msg %>"></p>
+        <p class="data" data-name="<%= flash.name %>"></p>
+        <p class="data" data-email="<%= flash.email %>"></p>
+        <p class="data" data-password="<%= flash.password %>"></p>
+        <p class="data" data-groupID="<%= flash.groupID %>"></p>
+    <% } %>
 </body>
+<script src="./js/methods.js"></script>
 <script src="./js/main.js"></script>
 <script>
-    let element = document.getElementsByClassName('data')
-    let data = {}
-    for (i = 0; i < element.length; i++) {
-        data = {
-            ...data,
-            ...JSON.parse(JSON.stringify(element[i].dataset))
-        }
-    }
+
+const createPostOption = (allow, token, postID) => {
+    if (!allow ) return ''
+    return `<div>
+        <div class="dropdown">
+            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-ellipsis-h"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                <a class="dropdown-item" onclick="editPost('${token}', '${postID}')" href="#edit">Chỉnh sửa</a>
+                <a class="dropdown-item" onclick="delPost('${token}', '${postID}')" href="#delete">Xoá</a>
+            </div>
+        </div>
+    </div>`
+}
+const createPostHtml = ({name, avatar, title, content, myAvatar, userID, myUserID, postID, timeStamp, token}) => {
+    return `<div class="card gedf-card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="mr-2">
+                        <img class="rounded-circle" width="45" src="${avatar}" alt="">
+                    </div>
+                    <div class="ml-2">
+                        <div class="h7 text-muted">${name.replace(/\w/, match => match.toUpperCase())}</div>
+                    </div>
+                </div>
+                <!-- Tuy chon cho mo post -->
+                ${createPostOption(userID == myUserID, token, postID)}
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> ${getTime(timeStamp)}</div>
+            <a class="card-link" href="#">
+                <h5 class="card-title">${title.replace(/\w/, match => match.toUpperCase())}</h5>
+            </a>
+            <p class="card-text">${content.replace(/\w/, match => match.toUpperCase())}</p>
+        </div>
+        <!-- Phan comment -->
+        <div class="card-footer">
+            <button type="button" class="btn" data-toggle="collapse" data-target="#comment${postID}"><a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a></button>
+            <div id="comment${postID}" class="collapse comment">
+                <hr />
+                // createCommentHtml
+                // createCommentHtml
+                // createCommentHtml
+                // createCommentHtml
+                // createCommentHtml
+                <hr />
+                <div class="post-comment">
+                    <img src="${myAvatar}" alt="" class="profile-photo-sm comment_avt">
+                    <input type="text" class="form-control comment_input" placeholder="Post a comment">
+                    <button type="submit" class="btn btn-profile btn-info btn-commentsibmit">Gửi</button>
+                </div>
+
+            </div>
+        </div>
+    </div>`
+}
+const createCommentHtml = (avatar, name, content) => {
+    return `<div class="post-comment">
+        <img src="${avatar}" alt="${name}" class="profile-photo-sm">
+        <p class="noidung_comment"><a href="timeline.html" class="profile-link">${name} </a><i class="em em-laughing"></i> ${content} </p>
+    </div>`
+}
+const getTime = (timeStamp) => {
+    return new Date(timeStamp).toLocaleTimeString()
+    // TODO cai bien thoi gian thong minh
+}
+const delPost = async (token, postID) => {
+    if(!confirm('Bạn có muốn xóa bài đăng này không')) return
+    console.log(token)
+    console.log(postID)
+    let {error, data} = await deletePost(token, {postID})
     console.log(data)
+    if (error) alert(error)
+    else alert('Đã xóa thành công')
+    location.reload()
+}
+const editPost = () => {
+
+}
+window.onload = async () => {
+    let data = getData()
+    let allPost = (await getAllPost(data.refreshtoken)).data
+    allPost = allPost.filter(f => f.user != null)
+    // console.log(allPost)
+    allPost.forEach(e => {
+        let post = document.createElement('div')
+        post.className = e._id
+        // console.log(e.user)
+        post.innerHTML = createPostHtml({
+            name: e.user.name,
+            avatar: e.user.avatar,
+            title: e.title,
+            content: e.content,
+            myAvatar: data.avatar,
+            userID: e.user._id,
+            myUserID: data.id,
+            postID: e._id,
+            timeStamp: e.timeStamp,
+            token: data.refreshtoken
+        })
+        PostList.appendChild(post)
+    })
+}
+
 </script>
 
 </html>

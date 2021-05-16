@@ -1,14 +1,18 @@
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
+const {studentRole, defaultAvatar} = require('../config')
 const userSchema = mongoose.Schema({
     authID: {type: String, default: ''},
     name: {type: String, default: 'anonymous'},
     nickName: {type: String, default: ''},
     email: {type: String, required: true, unique: true},
     password: {type: String, default: ''},
-    avatar: {type: String, default: '/images/default.png'},
-    role: {type: String, default: 'student'},
+    class: {type: String},
+    avatar: {type: String, default: defaultAvatar},
+    role: {type: String, default: studentRole},
+    faculty: {type: String}
 })
+//TODO them khoa
 
 userSchema.path('name').set(function (value) {
     return value.replace(/^\w|\s\w/gi, match => match.toUpperCase())
@@ -20,19 +24,20 @@ userSchema.path('role').set(function (value) {
 
 userSchema.pre('save', function (next) {
     let user = this
-    user.nickName = user.name
+    if(user.nickName == '')
+        user.nickName = user.name
     bcrypt.hash(user.password, 10, (err, hash) => {
         if(!err){
             user.password = hash
             next()
         }
         else{
-            console.log('Lỗi hash mật khẩu: ' + err)
+            throw `Lỗi hash mật khẩu: ${err.toString()}`
         }
     })
 })
 const Group = require('../models/groupUserModel')
-userSchema.pre('deleteOne', async function (next, doc) {
+userSchema.pre('deleteOne', async function (next) {
     let id = mongoose.Types.ObjectId(this._conditions._id)
     return Group.updateMany({leader: id}, {leader: null}).exec()
     .then(result => {

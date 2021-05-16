@@ -1,6 +1,4 @@
 
-chuc nang xoa mediacontent
-
 
 render cac trang thông báo theo phòng ban
 render profile

@@ -71,5 +71,29 @@ module.exports = {
         check('content').exists().withMessage('Không tìm thấy nội dung comment')
         .notEmpty().withMessage('Nội dung comment không được để trống')
         .isLength({min: 3}).withMessage('Nội dung phải có tối thiểu 3 ký tự'),
+    ],
+    validChangeInfo: [
+        validToken,
+        check('name').exists().withMessage('Vui lòng nhập tên người dùng')
+        .notEmpty().withMessage('Không được để trống tên người dùng'),
+
+        check('faculty').exists().withMessage('Vui lòng nhập Khoa')
+        .notEmpty().withMessage('Không được để trống trường Khoa'),
+    ],
+    validChangePassword: [
+        validToken,
+        check('password').exists().withMessage('Vui lòng nhập mật khẩu mới')
+        .notEmpty().withMessage('Không được để trống mật khẩu')
+        .isLength({min: 6}).withMessage('Mật khẩu phải từ 6 ký tự'),
+
+        check('rePassword').exists().withMessage('Vui lòng nhập xác nhận mật khẩu')
+        .notEmpty().withMessage('Chưa nhập xác nhận mật khẩu')
+        .custom((value, {req}) => {
+            if (req.body.password !== value){
+                throw new Error('Mật khẩu không khớp')
+            }else
+                return true
+        }),
     ]
+    
 }

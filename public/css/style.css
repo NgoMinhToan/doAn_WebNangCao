@@ -325,6 +325,37 @@
     text-align: center;
 }
 
+img.profile-photo-md {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+img.profile-photo-sm {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.post-comment {
+    background-color: whitesmoke;
+}
+
+.comment_input {
+    float: left;
+    width: 70%;
+}
+
+.comment_avt {
+    float: left;
+    margin-right: 5%;
+}
+
+.btn-commentsibmit {
+    margin-left: 3%;
+    width: 13%;
+}
+
 @media (max-width: 767px) {
     .nav-side-menu {
         position: relative;
@@ -352,6 +383,16 @@
     }
     .thongbao-manhinhchinh {
         display: block;
+    }
+    .comment_input {
+        float: left;
+        width: 65%;
+    }
+    .btn-commentsibmit {
+        margin-left: 3%;
+        width: 13%;
+        font-size: x-small;
+        margin-top: 1%;
     }
 }
 

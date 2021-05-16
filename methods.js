@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken')
 const {token: configToken, refreshToken: configRefreshToken} = require('./config')
 let tokenList = {}
+const bcrypt = require('bcrypt')
 module.exports = {
 
     // MiddleWare
@@ -27,6 +28,24 @@ module.exports = {
             }
         })
     },
+    checkTokenRedirect: (req, res, next) => {
+        let key = req.body.token || req.query.token
+        jwt.verify(key, configToken.secretKey, (err, value) => {
+            if (err) {
+                req.flash('success', '-1')
+                req.flash('msg', err.toString())
+                return res.redirect('/user/login')
+            }
+            if (req.user._id != value.id) {
+                req.flash('success', '-1')
+                req.flash('msg', 'Mã token không hợp lệ')
+                return res.redirect('/user/login')
+            }
+            else {
+                next()
+            }
+        })
+    },
 
     //Method
     createToken: (info) => {
@@ -46,5 +65,12 @@ module.exports = {
             })
         }
         else return res.json({success: false, msg: 'Refresh Token không có trong hệ thống'})
+    },
+    hashPassword: function(planePassword){
+        try {
+            return bcrypt.hashSync(`${planePassword}`, 10)
+        } catch (e) {
+            throw e.toString()
+        }
     }
 }

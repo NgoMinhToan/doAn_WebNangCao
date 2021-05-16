@@ -154,7 +154,7 @@
         console.log(`Error: ${errorGetGroup}`)
         listGroupData = listGroupData.map(m => ({name: m.name, id: m._id, leader: m.leader}))
         console.log(listGroupData)
-        listGroupData = listGroupData.filter(f => f.leader == null) //TODO sua
+        listGroupData = listGroupData.filter(f => f.leader == null)
         console.log(listGroupData)
 
         btn_addGroup.onclick = (e) => {

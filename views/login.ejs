@@ -40,15 +40,15 @@
             <div class="signin">
                 <p>You don't have an account? <a href="/user/register">Sign up</a>.</p>
             </div>
-            <% if(locals.error && error.length > 0){ %>
-                <% if (+code != 0){ %>
+            <% if(locals.success && success.length > 0){ %>
+                <% if (success == -1){ %>
                     <div class="alert alert-danger">
-                        <strong>Error: <%= code %></strong>
+                        <strong>Error: </strong>
                 <% }else{ %>
                     <div class="alert alert-success"> 
-                        <strong>Success: <%= code %></strong>  
+                        <strong>Success: </strong>  
                 <% } %>
-                    <%= error %>
+                    <%= msg %>
                 </div>
             <% } %>
         </form>

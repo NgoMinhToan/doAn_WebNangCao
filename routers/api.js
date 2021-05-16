@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const {checkValid, Post, Comment, getGroups, deleteUser} = require('../controllers/ApiController')
+const {checkValid, Post, Comment, getGroups, deleteUser, MC} = require('../controllers/ApiController')
 const {isLogin_json, checkToken, refreshToken} = require('../methods')
 const multer = require('multer')
 const uploader = multer({dest: __dirname + '/../temp/'})
@@ -28,6 +28,10 @@ router.post('/getGroups', isLogin_json, validToken, checkValid, checkToken, getG
 router.post('/refreshToken', isLogin_json, validToken, checkValid, refreshToken)
 
 router.post('/user/delete', isLogin_json, validToken, checkValid, checkToken, deleteUser)
+
+router.post('/mc/getAll', isLogin_json, validToken, checkValid, checkToken, MC.getAllMContent)
+
+router.post('/mc/delete/:idMediaContent', isLogin_json, validToken, checkValid, checkToken, MC.deleteMediaContent)
 
 module.exports = router
 

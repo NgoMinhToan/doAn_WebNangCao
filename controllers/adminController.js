@@ -2,6 +2,7 @@ const {check, validationResult} = require('express-validator')
 const User = require('../models/userModel')
 const Group = require('../models/groupUserModel')
 const mongoose = require('mongoose')
+const {instructorRole} = require('../config')
 module.exports = {
     createAccountIndex: (req, res) => {
         let success = req.flash('success')
@@ -26,7 +27,7 @@ module.exports = {
         try {
             let checkUserResult = await User.find({email})
             if (checkUserResult.length != 0) throw 'Đã tồn tại email người dùng'
-            let newUser = new User({name, email, password})
+            let newUser = new User({name, email, password, role: instructorRole})
             let userResult = await newUser.save()
             let groupIDObj = groupID.map(m => mongoose.Types.ObjectId(m))
             let result = await Group.updateMany({'_id': {$in: groupIDObj}}, {leader: userResult})

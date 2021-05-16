@@ -42,10 +42,8 @@ app.get('/', isLogin, (req, res) => {
     res.redirect('/main')
 })
 
-app.get('/main', isLogin, (req, res) => {
-    console.log({...req.session.passport.user, ...req.user._doc})
-    res.render('main', req.session.passport.user)
-})
+app.use('/main', isLogin, require('./routers/mainRoute'))
+
 
 app.use('/notification', isLogin, require('./routers/notificationRoute'))
 
@@ -60,6 +58,8 @@ app.use('/api', require('./routers/api'))
 app.use('/auth', require('./routers/OAuth'))
 
 app.use('/user', require('./routers/userRoute'))
+
+
 
 app.get('/testapi', isLogin_json, (req, res) => {
     res.render('testAPI', req.session.passport.user)
