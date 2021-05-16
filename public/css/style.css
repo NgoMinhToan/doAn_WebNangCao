@@ -356,6 +356,40 @@ img.profile-photo-sm {
     width: 13%;
 }
 
+.caption-noticreate {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.container-createnoti {
+    width: 60%;
+}
+
+.input-editcreate-noti {
+    line-height: 800%;
+    margin-bottom: 4%;
+}
+
+.custom-checkbox {
+    margin-left: 25%;
+}
+
+.btnsaddfilecreatenoti {
+    margin-left: 20%;
+    text-align: center;
+}
+
+.tieudethongbaodetail {
+    margin-top: 3%;
+    text-align: center;
+    color: blue;
+}
+
+.noidungthongbaodetail {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
 @media (max-width: 767px) {
     .nav-side-menu {
         position: relative;
@@ -420,7 +454,7 @@ img.profile-photo-sm {
     .container {
         border-radius: 5%;
         margin-top: 2%;
-        width: 35%;
+        width: 50%;
         height: 100%;
     }
 }
