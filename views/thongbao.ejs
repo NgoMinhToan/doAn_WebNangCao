@@ -3,66 +3,12 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Exercise3</title>
+  <title>Thông báo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="./css/style.css">
-  <style>
-    .carousel-inner .item img {
-      width: 800px;
-      height: 300px;
-      border-radius: 4px;
-    }
-
-    .cell {
-      margin-top: 20px;
-      padding-bottom: 15px;
-      border-radius: 4px;
-
-    }
-
-    .cell:hover {
-      box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
-    }
-
-    .cell .user-info .title {
-      margin-top: 8px;
-      font-weight: bold;
-      font-size: 18px;
-      color: blueviolet;
-    }
-
-    .cell .user-info .position {
-      font-size: 14px;
-      text-align: justify;
-    }
-
-    .cell img {
-      border-radius: 2px 2px 0 0;
-      width: 250px;
-      height: 250px;
-    }
-
-    .first-item .list-group {
-      color: blueviolet;
-    }
-
-    .first-item .list-group .list-group-item:hover {
-      box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.2);
-      ;
-    }
-
-    .jumbotron {
-      background-color: #24221e;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      margin-bottom: auto;
-      margin-top: 15px;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href=".../public/css/style.css" media="screen" /> 
 </head>
 
 <body>
@@ -90,7 +36,7 @@
       <div class="col-lg-3">
         <div class="profile-sidebar">
           <div class="profile-userpic">
-            <img src="images/avatar.png" class="img-responsive" alt="Thông tin cá nhân">
+            <img src="../public/images/avatar.jpg" class="img-responsive" alt="Thông tin cá nhân">
           </div>
           <div class="profile-usertitle">
             <b class="profile-name">Ngô Minh Toàn</b>
@@ -138,17 +84,17 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <img src="images/img_f1.png">
+              <img src="../public/images/img_f1.png" class="center-block">
               <div class="Chude">Bảo hiểm </div>
             </div>
 
             <div class="item">
-              <img src="images/hocphi.jpg">
+              <img src="../public/images/hocphi.jpg" class="center-block">
               <div class="Chude">Học phí</div>
             </div>
 
             <div class="item">
-              <img src="images/hocbong.jfif">
+              <img src="../public/images/hocbong.png" class="center-block">
               <div class="Chude text-2">Học bổng</div>
             </div>
           </div>
@@ -163,61 +109,61 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
+        <div class = "row">
+          <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
+              <div class = "cell">
+                  <img src = "../public/images/logo.png"/>
+                  <div class = "user-info">
+                      <span class="title">Phòng Đại học</span>         
+                  </div>
+              </div>
+          </div>
+          <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
+              <div class = "cell">
+                  <img src = "../public/images/logo.png"/>
+                  <div class = "user-info">
+                      <span class="title">Phòng CTHSSV</span>         
+                  </div>
+              </div>
+          </div>
+          <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
+              <div class = "cell">
+                  <img src = "../public/images/ttnn.png"/>
+                  <div class = "user-info">
+                      <span class="title">Trung tâm ngoại ngữ</span> 
+                  </div>
+              </div>
+          </div>
+          <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
+              <div class = "cell">
+                  <img src = "../public/images/ttth.png"/>
+                  <div class = "user-info">
+                      <span class="title">Trung tâm tin học</span>         
+                  </div>
+              </div>
+          </div>
+          <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
+              <div class = "cell">
+                  <img src = "../public/images/khoa_cntt.png"/>
+                  <div class = "user-info">
+                      <span class="title">Khoa Công nghệ thông tin</span>         
+                  </div>
+              </div>
+          </div>
+          <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
+              <div class = "cell">
+                  <img src = "../public/images/khoa_tcnh.png"/>
+                  <div class = "user-info">
+                      <span class="title">Khoa tài Chính Ngân hàng</span> 
+                  </div>
+              </div>
+          </div>
+      </div>
 
-        <div class="row">
-          <div class="col-lg-4 col-md-4 col-sm-6 list-item">
-            <div class="cell">
-              <img src="images/logo.png" />
-              <div class="user-info">
-                <span class="title">Phòng CTHSSV</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 list-item">
-            <div class="cell">
-              <img src="images/logo.png" />
-              <div class="user-info">
-                <span class="title">Khoa Công nghệ thông tin</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 list-item">
-            <div class="cell">
-              <img src="images/logo.png" />
-              <div class="user-info">
-                <span class="title">Khoa tài Chính Ngân hàng</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 list-item">
-            <div class="cell">
-              <img src="images/logo.png" />
-              <div class="user-info">
-                <span class="title">Phòng CTHSSV</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 list-item">
-            <div class="cell">
-              <img src="images/logo.png" />
-              <div class="user-info">
-                <span class="title">Khoa Công nghệ thông tin</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 list-item">
-            <div class="cell">
-              <img src="images/logo.png" />
-              <div class="user-info">
-                <span class="title">Khoa tài Chính Ngân hàng</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
-  <p class="jumbotron">Đại học Tôn Đức Thắng</p>
+  <p class="jumbotron text-center">Đại học Tôn Đức Thắng</p>
 </body>
 
 </html>
