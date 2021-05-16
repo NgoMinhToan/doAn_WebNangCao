@@ -10,6 +10,23 @@ const getData = (name = 'data') => {
     }
     return data
 }
+// GỌi comment cua baii dang
+const getComment = async (token = {}, {postID}) => {
+    let url = `http://localhost:3000/api/post/${postID}/get_comments`
+    return fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({token})
+        })
+        .then(json => json.json())
+        .then(json => {
+            if (json.success) return {error: '', data: json.result}
+            else return {error: json.msg, data: []}
+        })
+        .catch(err => ({error: err, data: []}))
+}
 // GỌi api lấy tất cả bài đăng
 const getAllPost = async (token = {}) => {
     let url = 'http://localhost:3000/api/post/get_all_posts'
@@ -69,7 +86,31 @@ const createPost = async (token = {}, {title, content, group, video, image}) => 
         .then(json => ({error: '', data: json}))
         .catch(err => ({error: err, data: {}}))
 }
+// tạo comment
+const createComment = async (token = {}, {content, postID, video = [], image = []}) => {
+    let url = `http://localhost:3000/api/comment/create`
 
+    let form =  new FormData()
+    form.set('token', token)
+    form.set('content', content)
+    form.set('postID', postID)
+    for(i=0;i<video.length;i++)
+        form.append('video', video[i])
+    for(i=0;i<image.length;i++)
+        form.append('image', image[i])
+
+    return fetch(url, {
+            method: 'PUT',
+            // headers: {
+            //     'Content-Type': 'multipart/form-data'
+            // },
+            body: form
+    })
+    .then(json => json.json())
+    .then(json => ({error: '', data: json}))
+    .catch(err => ({error: err, data: {}}))
+}
+// Cập nhật bài đăng
 const updatePost = async (token = {}, {title, content, group, video, image, postID, oldContentList}) => {
     let url = `http://localhost:3000/api/post/update/${postID}`
 

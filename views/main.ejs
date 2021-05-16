@@ -104,64 +104,7 @@
         <!-- Post -->
         <div id="PostList"></div>
 
-        <div class="card gedf-card">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="mr-2">
-                            <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
-                        </div>
-                        <div class="ml-2">
-                            <div class="h7 text-muted">Đặng Minh Thắng</div>
-                        </div>
-                    </div>
-                    <!-- Tuy chon cho mo post -->
-                    <div>
-                        <div class="dropdown">
-                            <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-                                <a class="dropdown-item" href="#edit">Chỉnh sửa</a>
-                                <a class="dropdown-item" href="#delete">Xoá</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
-                <a class="card-link" href="#">
-                    <h5 class="card-title">Thong Bao</h5>
-                </a>
-
-                <p class="card-text">
-                    Hôm nay giỗ tổ nhưng đéo được nghỉ
-                </p>
-            </div>
-            <!-- Phan comment -->
-            <div class="card-footer">
-                <button type="button" class="btn" data-toggle="collapse" data-target="#demo"><a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a></button>
-                <div id="demo" class="collapse">
-                    <hr />
-                    <div class="post-comment">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="profile-photo-sm">
-                        <p class="noidung_comment"><a href="timeline.html" class="profile-link">Diana </a><i class="em em-laughing"></i> Oke OKe </p>
-                    </div>
-                    <div class="post-comment">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="profile-photo-sm">
-                        <p><a href="timeline.html" class="profile-link">John</a> Hôm nay giỗ tổ nhưng đéo được nghỉ à ? </p>
-                    </div>
-                    <hr />
-                    <div class="post-comment">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="profile-photo-sm comment_avt">
-                        <input type="text" class="form-control comment_input" placeholder="Post a comment">
-                        <button type="submit" class="btn btn-profile btn-info btn-commentsibmit">Gửi</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        
         <!-- Post nhung video Youtube-->
         <div class="card gedf-card">
             <div class="card-header">
@@ -198,7 +141,6 @@
                     Hôm nay giỗ tổ nhưng đéo được nghỉ
                     <br><br>
                     <embed width="100%" height="450" src="https://www.youtube.com/embed/EFB8k6INRg0">
-
                 </p>
             </div>
             <div class="card-footer">
@@ -274,7 +216,7 @@ const createPostOption = (allow, token, postID) => {
         </div>
     </div>`
 }
-const createPostHtml = ({name, avatar, title, content, myAvatar, userID, myUserID, postID, timeStamp, token}) => {
+const createPostHtml = ({name, avatar, title, content, myAvatar, userID, myUserID, postID, timeStamp, token, comment, mediaContent}) => {
     return `<div class="card gedf-card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center">
@@ -296,33 +238,65 @@ const createPostHtml = ({name, avatar, title, content, myAvatar, userID, myUserI
                 <h5 class="card-title">${title.replace(/\w/, match => match.toUpperCase())}</h5>
             </a>
             <p class="card-text">${content.replace(/\w/, match => match.toUpperCase())}</p>
+
+            ${createEmberHtml(mediaContent)}
+            
+
+
         </div>
         <!-- Phan comment -->
         <div class="card-footer">
             <button type="button" class="btn" data-toggle="collapse" data-target="#comment${postID}"><a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a></button>
             <div id="comment${postID}" class="collapse comment">
                 <hr />
-                // createCommentHtml
-                // createCommentHtml
-                // createCommentHtml
-                // createCommentHtml
-                // createCommentHtml
+                ${createCommentHtml(comment)}
                 <hr />
                 <div class="post-comment">
                     <img src="${myAvatar}" alt="" class="profile-photo-sm comment_avt">
-                    <input type="text" class="form-control comment_input" placeholder="Post a comment">
-                    <button type="submit" class="btn btn-profile btn-info btn-commentsibmit">Gửi</button>
+                    <input type="text" id="commentContent-${postID}" class="form-control comment_input" placeholder="Post a comment">
+                    <button type="submit" class="btn btn-profile btn-info btn-commentsibmit" onclick="sendComment('${token}', '${postID}')">Gửi</button>
                 </div>
 
             </div>
         </div>
     </div>`
 }
-const createCommentHtml = (avatar, name, content) => {
-    return `<div class="post-comment">
-        <img src="${avatar}" alt="${name}" class="profile-photo-sm">
-        <p class="noidung_comment"><a href="timeline.html" class="profile-link">${name} </a><i class="em em-laughing"></i> ${content} </p>
-    </div>`
+const sendComment = async (token, postID) => {
+    let content = document.getElementById(`commentContent-${postID}`).value
+    let {error, data} = await createComment(token, {postID, content})
+    console.log(error)
+    console.log(data)
+    // if(error) console.log(error)
+    // else location.reload()
+
+}
+const createEmberHtml = (mediaContent) => {
+    let html = ''
+    mediaContent.forEach(e => {
+        if(e.type == 'image'){
+            html += `<p class="card-text">
+                        <br><br>
+                        <img width="100%" height="450" src="./${e.uri}">
+                    </p>`
+        }
+        else{
+            html += `<p class="card-text">
+                        <br><br>
+                        <embed width="100%" height="450" src="${e.uri}">
+                    </p>`
+        }
+    })
+    return html
+}
+const createCommentHtml = (commentList) => {
+    let html = ''
+    commentList.forEach(e => {
+        html += `<div class="post-comment">
+                    <img src="${e.user.avatar}" alt="${e.user.name}" class="profile-photo-sm">
+                    <p class="noidung_comment"><a href="timeline.html" class="profile-link">${e.user.name} </a><i class="em em-laughing"></i> ${e.content} </p>
+                </div>`
+    })
+    return html
 }
 const getTime = (timeStamp) => {
     return new Date(timeStamp).toLocaleTimeString()
@@ -345,11 +319,11 @@ window.onload = async () => {
     let data = getData()
     let allPost = (await getAllPost(data.refreshtoken)).data
     allPost = allPost.filter(f => f.user != null)
-    // console.log(allPost)
-    allPost.forEach(e => {
+    allPost.forEach(async e => {
         let post = document.createElement('div')
         post.className = e._id
-        // console.log(e.user)
+        let comment = (await getComment(data.refreshtoken, {postID: e._id})).data
+        console.log(comment)
         post.innerHTML = createPostHtml({
             name: e.user.name,
             avatar: e.user.avatar,
@@ -360,8 +334,11 @@ window.onload = async () => {
             myUserID: data.id,
             postID: e._id,
             timeStamp: e.timeStamp,
-            token: data.refreshtoken
+            token: data.refreshtoken,
+            comment: comment,
+            mediaContent: e.mediaContent,
         })
+        console.log(e.mediaContent)
         PostList.appendChild(post)
     })
 }
