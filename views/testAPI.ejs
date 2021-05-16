@@ -131,17 +131,6 @@
         console.log(`Error: ${errorPost}`)
         console.log(post)
 
-        // Socket cho client
-        const socket = io()
-        socket.on('connect', function (){
-            socket.emit('setUser', id)
-            socket.on('post', doc => {
-                console.log(doc)
-            })
-            socket.on('comment', doc => {
-                console.log(doc)
-            })
-        })
     }
     // Array.prototype.forEach.call(status, e => {
 </script>

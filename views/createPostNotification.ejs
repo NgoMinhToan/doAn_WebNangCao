@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chi sua trang ca nhan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arbutus" rel="stylesheet">
+</head>
+<link href="../css/style.css" rel="stylesheet" />
+
+<body>
+
+    <div class="container">
+        <form action="#" class="form-login" method="POST" autocomplete="on">
+            <div class="caption-noticreate">
+                <label><h3>Đăng thông báo</h3></label>
+            </div>
+
+            <hr>
+            <div class="profiledata ">
+                <h5 class="profiledata_1 label_editprofile_phongkhoa">Tiêu đề </h5>
+                <input class="profiledata_1 input_editprofile_phongkhoa" type=" text " id="title" name="title"><br><br>
+            </div>
+            <div class="profiledata ">
+                <h5 class="profiledata_1 label_editprofile_phongkhoa">Nội dung </h5>
+                <input class="profiledata_1 input_editprofile_phongkhoa input-editcreate-noti" type=" text " id="content" name="content"><br><br>
+            </div>
+            <div class="profiledata ">
+                <h5 class="profiledata_1 label_editprofile_phongkhoa">Phòng ban </h5>
+                <!-- Chon phong khoa -->
+                <select name="group" id="group">
+                </select><br><br>
+                
+                
+                <label for="video">link video:</label>
+                <p id="link_videos"></p>
+                <a type="button" class="btn btn-primary btn-sm" id="add_video">Thêm link</a>
+                <br>
+            </div>
+            <div class="upload-btn-wrapper">
+                <button class="btns btnsaddfilecreatenoti">Chọn File đính kèm</button>
+                <input type="file" id="image" name="image" accept="image/*" multiple/>
+            </div>
+            <hr>
+            <div class="form-group ">
+                <a type="button" id="btn_submit" class="btn btn-info btn-editprofile ">Đăng thông báo</a>
+            </div>
+            <br>
+            <div class="notify">
+                <% if(locals.success && success.length > 0){ %>
+                    <% if (success == -1){ %>
+                        <div class="alert alert-danger">
+                            <strong>Error: </strong>
+                    <% }else{ %>
+                        <div class="alert alert-success"> 
+                            <strong>Success: </strong>  
+                    <% } %>
+                        <%= msg %>
+                    </div>
+                <% } %>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+<% if(locals.data){ %>
+    <p class="data" data-id="<%= data.id %>"></p>
+    <p class="data" data-token="<%= data.token %>"></p>
+    <p class="data" data-refreshToken="<%= data.refreshToken %>"></p>
+    <p class="data" data-name="<%= data.name %>"></p>
+    <p class="data" data-nickName="<%= data.nickName %>"></p>
+    <p class="data" data-avatar="<%= data.avatar %>"></p>
+    <p class="data" data-role="<%= data.role %>"></p>
+    <p class="data" data-email="<%= data.email %>"></p>
+<% } %>
+
+<% if(locals.flash){ %>
+    <p class="data" data-success="<%= flash.success %>"></p>
+    <p class="data" data-msg="<%= flash.msg %>"></p>
+    <p class="data" data-name="<%= flash.name %>"></p>
+    <p class="data" data-email="<%= flash.email %>"></p>
+    <p class="data" data-password="<%= flash.password %>"></p>
+    <p class="data" data-groupID="<%= flash.groupID %>"></p>
+<% } %>
+<script src="../js/methods.js"></script>
+<script>
+    window.onload = async () => {
+    let {refreshtoken: token, id, role} = getData()
+        console.log(token)
+
+        let {error: errorGetGroup, data: listGroup} = await getGroup(token)
+        console.log(`Error: ${errorGetGroup}`)
+        if(role == 'Student'){
+            listGroup = [listGroup[0]]
+        }
+        else if(role == 'Instructor'){
+                listGroup = listGroup.filter(f => f.leader == id)
+            }
+        console.log(listGroup)
+        listGroup = listGroup.map(m => ({name: m.name, id: m._id}))
+        for(i in listGroup){
+            let element = document.createElement("option")
+            if(i == 0){
+                element.selected = true
+            }
+            element.setAttribute('value', listGroup[i].id)
+            element.innerHTML = listGroup[i].name
+            document.getElementById('group').appendChild(element)
+        }
+        
+
+        let video = []
+        add_video.onclick = async (e) => {
+            let link = prompt('Vui lòng thêm đường link youtube: ')
+            if ((new RegExp(/^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$/).test(link))){
+                link_videos.append(link, document.createElement("br"))
+                video.push(link)
+            }
+            else{
+                alert('Link không đúng định dạng')
+            }
+        }
+        
+        btn_submit.onclick = async (e) => {
+            let title = document.getElementById('title').value
+            let content = document.getElementById('content').value
+            let group = document.getElementById('group').value
+
+            let uploadFile = document.getElementById('image')
+            let image = uploadFile.files
+            let {error: errorCreate, data: res} = await createPost(token, {title, content, video, group, image})
+            console.log(`Error: ${errorCreate}`)
+            console.log(res)
+            if(!res.success){
+                document.getElementsByClassName('notify')[0].innerHTML = `<div class="alert alert-danger"><strong>Error: </strong> ${res.msg}</div>`
+            }
+            else{
+                document.getElementsByClassName('notify')[0].innerHTML = ''
+                window.location.replace('/../')
+            }
+        }
+
+
+    }
+</script>
+</html>

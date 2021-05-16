@@ -3,6 +3,8 @@ const controller = require('../controllers/Notification')
 
 router.get('/', controller.index)
 
+router.get('/create', controller.createPostIndex)
+
 module.exports = router
 
 

@@ -36,7 +36,12 @@
       <div class="col-lg-3">
         <div class="profile-sidebar">
           <div class="profile-userpic">
-            <img src="<%= data.avatar %>" class="img-responsive" alt="Thông tin cá nhân">
+
+            <% if(data.avatar.startsWith("http")){ %>
+              <img src="<%=data.avatar%>" class="img-responsive" alt="Thông tin cá nhân">
+          <% }else{ %>
+              <img src="../../<%=data.avatar%>" class="img-responsive" alt="Thông tin cá nhân">
+          <% } %>
           </div>
           <div class="profile-usertitle">
             <b class="profile-name"><%= data.name %></b>
@@ -47,17 +52,16 @@
           <div class="profile-usermenu">
             <ul class="nav">
               <li class="active">
-                <a href="#"> <i class="glyphicon glyphicon-info-sign"></i> Cập nhật thông tin cá nhân </a>
-
+                <a href="./user/profile/edit"> <i class="glyphicon glyphicon-info-sign"></i> Cập nhật thông tin cá nhân </a>
               <li>
-                <div class="btn-group dropright">
+                <!-- <div class="btn-group dropright">
                   <a type="button" class="btn btn-secondary dropdown-toggle glyphicon-envelope" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     Xem thông báo theo >
                   </a>
-                  <div class="dropdown-menu">
+                  <div class="dropdown-menu"> -->
                     <!-- Dropdown menu links -->
-                    <div class="dropdown-item"><a href="#"> + Phòng ban</a></div>
+                    <!-- <div class="dropdown-item"><a href="#"> + Phòng ban</a></div>
                     <div class="dropdown-item"><a href="#"> + Chủ đề</a></div>
                     <div class="dropdown-item"><a href="#"> + Tất cả thông báo</a></div>
                     <div class="dropdown-divider"></div>
@@ -67,7 +71,7 @@
               <li><a href="#"><i class="glyphicon glyphicon-heart"></i> Thông báo quan trọng</a>
               </li>
               <li> <a href="#"> <i class="glyphicon glyphicon-envelope"></i> Tin nhắn </a>
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>
@@ -84,17 +88,17 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <div class="item active">
-              <img src="../public/images/img_f1.png" class="center-block">
+              <img src="../images/img_f1.png" class="center-block">
               <div class="Chude">Bảo hiểm </div>
             </div>
 
             <div class="item">
-              <img src="../public/images/hocphi.jpg" class="center-block">
+              <img src="../images/hocphi.jpg" class="center-block">
               <div class="Chude">Học phí</div>
             </div>
 
             <div class="item">
-              <img src="../public/images/hocbong.png" class="center-block">
+              <img src="../images/hocbong.png" class="center-block">
               <div class="Chude text-2">Học bổng</div>
             </div>
           </div>
@@ -112,7 +116,7 @@
         <div class = "row">
           <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
               <div class = "cell">
-                  <img src = "../public/images/logo.png"/>
+                  <img src = "../images/logo.png"/>
                   <div class = "user-info">
                       <span class="title">Phòng Đại học</span>         
                   </div>
@@ -120,7 +124,7 @@
           </div>
           <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
               <div class = "cell">
-                  <img src = "../public/images/logo.png"/>
+                  <img src = "../images/logo.png"/>
                   <div class = "user-info">
                       <span class="title">Phòng CTHSSV</span>         
                   </div>
@@ -128,7 +132,7 @@
           </div>
           <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
               <div class = "cell">
-                  <img src = "../public/images/ttnn.png"/>
+                  <img src = "../images/ttnn.png"/>
                   <div class = "user-info">
                       <span class="title">Trung tâm ngoại ngữ</span> 
                   </div>
@@ -136,7 +140,7 @@
           </div>
           <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
               <div class = "cell">
-                  <img src = "../public/images/ttth.png"/>
+                  <img src = "../images/ttth.png"/>
                   <div class = "user-info">
                       <span class="title">Trung tâm tin học</span>         
                   </div>
@@ -144,7 +148,7 @@
           </div>
           <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
               <div class = "cell">
-                  <img src = "../public/images/khoa_cntt.png"/>
+                  <img src = "../images/khoa_cntt.png"/>
                   <div class = "user-info">
                       <span class="title">Khoa Công nghệ thông tin</span>         
                   </div>
@@ -152,7 +156,7 @@
           </div>
           <div class = "col-lg-4 col-md-4 col-sm-6 list-item">
               <div class = "cell">
-                  <img src = "../public/images/khoa_tcnh.png"/>
+                  <img src = "../images/khoa_tcnh.png"/>
                   <div class = "user-info">
                       <span class="title">Khoa tài Chính Ngân hàng</span> 
                   </div>
@@ -165,5 +169,10 @@
   </div>
   <p class="jumbotron text-center">Đại học Tôn Đức Thắng</p>
 </body>
+<script>
+  window.onload = () => {
+    alert('Trang này chưa hoàn thiện các mục thông báo')
+  }
+</script>
 
 </html>

@@ -1,5 +1,5 @@
 const instructorRole = 'Instructor'
-const groupOtherName = 'other'
+const groupOtherName = 'Other'
 const studentRole = 'Student'
 const defaultFaculty = 'Khoa Công nghệ thông tin'
 const allowMailDomain = '@student.tdtu.edu.vn'

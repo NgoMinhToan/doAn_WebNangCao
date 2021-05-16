@@ -2,6 +2,10 @@
     width: -webkit-fill-available;
     margin-top: 10px;
 }
+#group {
+    width: -webkit-fill-available;
+    margin-top: 10px;
+}
 
 .container {
     border: 2px solid #EFF3F7;

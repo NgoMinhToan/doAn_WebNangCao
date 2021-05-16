@@ -18,7 +18,11 @@
     <div class="container">
         <form action="./editPassword" class="form-login " method="POST" autocomplete="on ">
             <input name="token" value="<%= data.token %>" style="display: none;" type="text">
-            <img src="./../../<%= data.avatar%>" alt="Avatar" class="avatar">
+            <% if(data.avatar.startsWith("http")){ %>
+                <img src="<%=data.avatar%>" alt="Avatar" class="avatar">
+            <% }else{ %>
+                <img src="../../<%=data.avatar%>" alt="Avatar" class="avatar">
+            <% } %>
 
             <hr>
             <div class="profiledata ">
