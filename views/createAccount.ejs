@@ -10,8 +10,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Arbutus" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet" />
-    <script src="../js/methods.js"></script>
+    <link href="/css/style.css" rel="stylesheet" />
+    <script src="/js/methods.js"></script>
+    <script src="/js/notify.min.js" ></script>
 </head>
 
 <body>
@@ -84,93 +85,6 @@
     <p class="data" data-groupID="<%= flash.groupID %>"></p>
 <% } %>
 
-<script>
-    const doAddGroup = (listGroupData, select = null) => {
-        // moi lan select luu vao danh dach nay
-        listGroup = updateGroupList(listGroupData)
-        let groupSelect = document.createElement('select')
-        groupSelect.className = 'group form-select form-select-sm'
-        groupSelect.setAttribute('aria-label', ".form-select-sm")
-        groupSelect.setAttribute('name', 'groupID')
-        groupSelect.addEventListener('change', e => {
-            listGroup = reloadGroupList(listGroupData)
-            console.log(e.target.value)
-        })
-        if (select == null) select == listGroup[0].id
-        for(i in listGroup){
-            let element = document.createElement("option")
-            if(i == 0) continue
-            if(listGroup[i].id == select){
-                element.selected = true
-            }
-            element.setAttribute('value', listGroup[i].id)
-            element.innerHTML = listGroup[i].name
-            groupSelect.appendChild(element)
-        }
-
-        selectGroupBox.appendChild(groupSelect)
-    }
-    const updateGroupList = (listGroupData) => {
-        let selectList = []
-        Array.prototype.forEach.call(document.getElementsByClassName('group'), (e) => {
-            selectList.push(e.value)
-        })
-        return listGroupData.filter(f => !selectList.includes(f.id))
-    }
-    
-    const reloadGroupList = (listGroupData) => {
-        let selectedList = []
-        Array.prototype.forEach.call(document.getElementsByClassName('group'), (e) => {
-            selectedList.push(e.value)
-        })
-        let listGroup = listGroupData.filter(f => !selectedList.includes(f.id))
-        Array.prototype.forEach.call(document.getElementsByClassName('group'), (e) => {
-            e.innerHTML = ''
-            let currentValue = selectedList.shift()
-            currentValue = listGroupData.filter(f => f.id == currentValue)[0]
-            let currentList = listGroup.concat(currentValue)
-            console.log(listGroup)
-            for(i in currentList){
-                let element = document.createElement("option")
-                if(i == 0) continue
-                if(currentList[i].id == currentValue.id){
-                    element.selected = true
-                }
-                element.setAttribute('value', currentList[i].id)
-                element.innerHTML = currentList[i].name
-                e.appendChild(element)
-            }
-        })
-
-        
-        return listGroup
-    }
-
-    window.onload = async () => {
-        console.log(getData())
-        let {token, id, groupid: groupIDdata} = getData()
-
-        let {error: errorGetGroup, data: listGroupData} = await getGroup(token)
-        console.log(`Error: ${errorGetGroup}`)
-        listGroupData = listGroupData.map(m => ({name: m.name, id: m._id, leader: m.leader}))
-        console.log(listGroupData)
-        listGroupData = listGroupData.filter(f => f.leader == null)
-        console.log(listGroupData)
-
-        btn_addGroup.onclick = (e) => {
-            e.preventDefault()
-            doAddGroup(listGroupData)
-        }
-        let groupID = groupIDdata.split(',')
-
-        if (groupID[0] == '')
-            doAddGroup(listGroupData)
-        else{
-            groupID.forEach(e => {
-                doAddGroup(listGroupData, e)
-            })
-        }
-    }
-</script>
+<script src="/js/createAccount.js"></script>
 
 </html>

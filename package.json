@@ -4,8 +4,8 @@
   "description": "Đồ án cuối kỳ môn Web nâng cao",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js",
-    "start": "nodemon app.js"
+    "test": "nodemon app.js",
+    "start": "node app.js"
   },
   "author": "Minh Toan",
   "license": "ISC",

@@ -10,8 +10,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Arbutus" rel="stylesheet">
+    <script src="/js/notify.min.js" ></script>
+    <script src="/js/methods.js"></script>
 </head>
-<link href="../../css/style.css" rel="stylesheet" />
+<link href="/css/style.css" rel="stylesheet" />
 
 <body>
 
@@ -32,18 +34,18 @@
             <hr>
             <div class="profiledata ">
                 <h5 class="profiledata_1 label_editprofile_phongkhoa">Tên : </h5>
-                <input class="profiledata_1 input_editprofile_phongkhoa" type=" text " value="<%= data.name%>" id="" name="name"><br><br>
+                <input class="profiledata_1 input_editprofile_phongkhoa" type=" text" value="<%= data.name%>" id="" name="name"><br><br>
             </div>
             <div class="profiledata ">
                 <h5 class="profiledata_1 label_editprofile_phongkhoa">Lớp : </h5>
-                <input class="profiledata_1 input_editprofile_phongkhoa" type=" text " value="<%= data.class%>" id="" name="Class"><br><br>
+                <input class="profiledata_1 input_editprofile_phongkhoa" type=" text" value="<%= data.class%>" id="" name="Class"><br><br>
             </div>
             <div class="profiledata ">
                 <h5 class="profiledata_1 label_editprofile_phongkhoa">Khoa : </h5>
-                <input class="profiledata_1 input_editprofile_phongkhoa" type=" text " value="<%= data.faculty%>" id="" name="faculty"><br><br>
+                <input class="profiledata_1 input_editprofile_phongkhoa" type=" text" value="<%= data.faculty%>" id="" name="faculty"><br><br>
             </div>
-            <div class="form-group ">
-                <button type="submit " class="btn btn-info btn-editprofile ">Xác nhận thay đổi</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info btn-editprofile">Xác nhận thay đổi</button>
             </div>
             <br>
             <br>
@@ -64,7 +66,16 @@
         </form>
 
     </div>
-
+    <% if(locals.flash.success){ %>
+        <p class="data" data-success="<%= flash.success %>"></p>
+        <p class="data" data-msg="<%= flash.msg %>"></p>
+    <% } %>
 </body>
-
+<script>
+    window.onload = () => {
+        let {success, msg} = getData()
+        if(success == '-1') $.notify(msg, "error");
+        else $.notify(msg, "success");
+    }
+</script>
 </html>

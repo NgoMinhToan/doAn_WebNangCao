@@ -10,7 +10,7 @@ const postSchema = mongoose.Schema({
     timeStamp: {type: Date, default: Date.now()},
 })
 
-const Comment =  require('./commentModel')
+const Comment =  require('./CommentModel')
 postSchema.pre('deleteOne', async function (next){
     return Comment.deleteMany({post: this._conditions._id}).exec()
     .then(result => console.log('Đã xóa các comment thành công'))

@@ -3,7 +3,7 @@ const {checkValid, Post, Comment, getGroups, deleteUser, MC} = require('../contr
 const {isLogin_json, checkToken, refreshToken} = require('../methods')
 const multer = require('multer')
 const uploader = multer({dest: __dirname + '/../temp/'})
-const {validCreatePost, validGetPost, validToken, validCreateComment} = require('../controllers/validator')
+const {validCreatePost, validGetPost, validToken, validCreateComment, validGroupID} = require('../controllers/Validator')
 
 router.put('/post/create', isLogin_json, uploader.array('image'), validCreatePost, checkValid, checkToken, Post.create)
 
@@ -14,6 +14,10 @@ router.post('/post/delete/:postID', isLogin_json, validToken, checkValid, checkT
 router.put('/comment/create', isLogin_json, uploader.array('image'), validCreateComment, checkValid, checkToken, Comment.create)
 
 router.post('/post/get_posts', isLogin_json, validGetPost, checkValid, checkToken, Post.get)
+
+router.post('/post/get_important_posts', isLogin_json, validGetPost, checkValid, checkToken, Post.getImportant)
+
+router.post('/post/get_important_faculty_posts', isLogin_json, validGetPost, validGroupID, checkValid, checkToken, Post.getFacultyImportant)
 
 router.post('/post/get_all_posts', isLogin_json, validToken, checkValid, checkToken, Post.getAll)
 

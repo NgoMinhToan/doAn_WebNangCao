@@ -1,0 +1,60 @@
+
+.card{
+    border: none;
+    box-shadow: 2px 2px 10px 2px rgba(128, 128, 128, 0.2);
+    transition: .2s all;
+}
+.card-body .card-text{
+    white-space: pre-wrap;
+}
+#home{
+    right: 10%;
+}
+
+#menuHeader{
+  box-shadow: 0px 5px 10px 2px rgba(128, 128, 128, 0.2);;
+}
+
+.menuText a:hover{
+    text-decoration: none;
+}
+
+.textHover::before {  
+  transform: scaleX(0);
+  transform-origin: bottom right;
+}
+
+.textHover:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.textHover::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  inset: 0 0 0 0;
+  background: hsl(200 100% 80%);
+  z-index: -1;
+  transition: transform .3s ease;
+}
+
+.video{
+  position:relative;
+  padding-top:56.25%;
+}
+.video iframe {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+.image img{
+  display: block;
+  max-width:100%;
+  max-height:100%;
+  width: auto;
+  height: auto;
+}

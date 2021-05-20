@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tất cả thông báo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/notification.css">
+    <script src="/js/methods.js"></script>
+</head>
+<body>
+    <div id="menuHeader" class="container-fluid sticky-top d-inline-flex align-items-center bg-white">
+        <h2 class="text-primary mb-2 mt-2" >Thông báo</h2>
+        <div  id="home"class=" mb-2 mt-3 ml-5 d-flex justify-content-between position-absolute">
+            <h5 class="menuText text-black"><a href="/notification">Tất cả thông báo</a></h5>
+            <div class="ml-5"></div>
+            <h5 class="menuText text-black"><a href="/">Trang chủ</a></h5>
+        </div>
+        <hr>
+    </div>
+    <div class="container mt-5">
+        <% if(locals.group){ %>
+            <h5 class="text-primary"><%= group.name %></h5>
+        <% } %>
+        <div id="listItem" class="mb-2">
+           
+        </div>
+        <ul id="pagination" class="pagination justify-content-center">
+        
+          </ul>
+    </div>
+
+
+
+    <% if(locals.data){ %>
+        <p class="data" data-id="<%= data.id %>"></p>
+        <p class="data" data-token="<%= data.token %>"></p>
+        <p class="data" data-refreshToken="<%= data.refreshToken %>"></p>
+        <p class="data" data-name="<%= data.name %>"></p>
+        <p class="data" data-nickName="<%= data.nickName %>"></p>
+        <p class="data" data-avatar="<%= data.avatar %>"></p>
+        <p class="data" data-role="<%= data.role %>"></p>
+        <p class="data" data-email="<%= data.email %>"></p>
+    <% } %>
+    
+    <% if(locals.flash){ %>
+        <p class="data" data-success="<%= flash.success %>"></p>
+        <p class="data" data-msg="<%= flash.msg %>"></p>
+    <% } %>
+    
+    <% if(locals.numPost){ %>
+        <p class="data" data-numPost="<%= numPost %>"></p>
+    <% } %>
+    
+    <% if(locals.group){ %>
+        <p class="data" data-groupid="<%= group._id %>"></p>
+        <p class="data" data-groupdesc="<%= group.desc %>"></p>
+        <p class="data" data-groupavatar="<%= group.avatar %>"></p>
+        <p class="data" data-groupname="<%= group.name %>"></p>
+    <% } %>
+</body>
+<script src="/js/facultyNotification.js"></script>
+</html>

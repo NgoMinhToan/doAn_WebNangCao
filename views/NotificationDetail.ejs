@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tất cả thông báo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/notificationDetail.css">
+    <script src="/js/methods.js"></script>
+</head>
+<body>
+    <div id="menuHeader" class="container-fluid sticky-top d-inline-flex align-items-center bg-white">
+        <h2 class="text-primary mb-2 mt-2" >Thông báo</h2>
+        <div  id="home"class=" mb-2 mt-3 ml-5 d-flex justify-content-between position-absolute">
+            <h5 class="menuText text-black"><a href="/notification">Tất cả thông báo</a></h5>
+            <div class="ml-5"></div>
+            <h5 class="menuText text-black"><a href="/">Trang chủ</a></h5>
+        </div>
+        <hr>
+    </div>
+    <div class="container mt-5">
+        <div class="card mb-4">
+            <% if(locals.post.toGroup){ %>
+                <h5 class="card-header"><%= post.toGroup.name %></h5>
+            <% }else if (locals.post.user){ %>
+                <h5 class="card-header"><%= post.user.name %></h5>
+            <% } %>
+            <div class="card-body">
+                <h5 class="card-title"><%= post.title %></h5>
+                <p class="card-text"><%= post.content %></p>
+            </div>
+            <% if(locals.post.mediaContent){ %>
+                <% post.mediaContent.forEach(e => { %>
+                    <% if(e.type == 'image'){ %>
+                        <div class="card-body image">
+                            <img alt="<%= e.originalname %>" src="<%= e.uri %>">
+                        </div>
+                    <% }else{ %>
+                        <div class="card-body video">
+                            <iframe frameborder="0" allowfullscreen
+                                src="<%= e.uri.replace('watch?v=', 'embed/')  %>">
+                            </iframe>
+                        </div>
+                    <% } %>
+                <% }) %>
+            <% } %>
+            <div class="card-footer"> <%= post.timeStamp %></div>
+        </div>
+    </div>
+<img src="" alt="">
+
+
+    <% if(locals.data){ %>
+        <p class="data" data-id="<%= data.id %>"></p>
+        <p class="data" data-token="<%= data.token %>"></p>
+        <p class="data" data-refreshToken="<%= data.refreshToken %>"></p>
+        <p class="data" data-name="<%= data.name %>"></p>
+        <p class="data" data-nickName="<%= data.nickName %>"></p>
+        <p class="data" data-avatar="<%= data.avatar %>"></p>
+        <p class="data" data-role="<%= data.role %>"></p>
+        <p class="data" data-email="<%= data.email %>"></p>
+    <% } %>
+    
+    <% if(locals.flash){ %>
+        <p class="data" data-success="<%= flash.success %>"></p>
+        <p class="data" data-msg="<%= flash.msg %>"></p>
+    <% } %>
+    
+</body>
+<script>
+    window.onload = () => {
+        $($('.card-footer')[0]).text(getTime($($('.card-footer')[0]).text()))
+    }
+</script>
+</html>

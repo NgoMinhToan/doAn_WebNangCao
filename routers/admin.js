@@ -1,7 +1,7 @@
 const router = require("express").Router()
-const {createAccountIndex, createAccount, isLogin, checkValid} = require('../controllers/adminController')
+const {createAccountIndex, createAccount, isLogin, checkValid} = require('../controllers/AdminController')
 const {checkToken} = require('../methods')
-const {validator_register} = require('../controllers/validator')
+const {validator_register} = require('../controllers/Validator')
 
 router.get('/createAccount', isLogin, createAccountIndex)
 

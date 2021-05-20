@@ -11,11 +11,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
-    <script
-  src="https://code.jquery.com/jquery-3.6.0.js"
-  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-  crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen" />
+    <script src="/js/notify.min.js" ></script>
+    
     <title>Trang chủ</title>
 </head>
 
@@ -28,7 +26,7 @@
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapse out">
                 <li>
-                    <a href="">
+                    <a href="#">
                         <i class="fa fa-dashboard fa-lg"></i> Trang chủ
                     </a>
                 </li>
@@ -36,7 +34,8 @@
                     <a href="#"><i class="fa fa-gift fa-lg"></i> Phân loại thông báo <span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="products">
-                    <li><a href="./notification">Phòng ban</a></li>
+                    <li><a href="/notification">Tất cả thông báo</a></li>
+                    <li><a href="/notification/faculty">Phòng ban</a></li>
                     <li><a href="https://stdportal.tdtu.edu.vn">Cổng thông tin</a></li>
                 </ul>
                 <% if(locals.data && data.role == 'Admin'){ %>
@@ -44,16 +43,21 @@
                         <a href="#"><i class="fa fa-users fa-lg"></i> Admin <span class="arrow"></span></a>
                     </li>
                     <ul class="sub-menu collapse" id="products2">
-                        <li><a href="./user/profile">Thông tin cá nhân</a></li>
-                        <li><a href="./admin/createAccount">Thêm tài khoản phòng ban</a></li>
+                        <li><a href="/user/profile">Thông tin cá nhân</a></li>
+                        <li><a href="/admin/createAccount">Thêm tài khoản phòng ban</a></li>
                     </ul>
                 <% }else{ %>
                     <li>
-                        <a href="./user/profile">
+                        <a href="/user/profile">
                             <i class="fa fa-users fa-lg"></i> Thông tin cá nhân
                         </a>
                     </li>
                 <% } %>
+                <li>
+                    <a href="/user/logout">
+                        <i class="fa fa-power-off"></i> Đăng xuất
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
@@ -62,45 +66,72 @@
         <!-- Khu vuc dang bai -->
         <div class="card gedf-card">
             <div class="card-body">
-                <a href="./notification/create" class="btn btn-primary">Tạo bài đăng</a>
+                <a href="#" id="createModel" class="btn btn-primary">Tạo bài đăng</a>
             </div>
         </div>
-
-
-        
+        <br>
         <!-- Post -->
         <div id="PostList"></div>
-
     </div>
+
     <!-- Thong bao ben phai -->
     <div class="col-md-3 thongbao-manhinhchinh">
         <div class="card gedf-card">
             <div class="card-body card-thongbao-chinh">
                 <h5 class="card-title card-title-thongbao">Thông báo</h5>
-                <a href="#" class="card-link link-xem-toanbo-thongbao"><u>Xem tất cả thông báo</u></a>
+                <a href="/notification" class="card-link link-xem-toanbo-thongbao"><u>Xem tất cả thông báo</u></a>
             </div>
         </div>
-        <div class="card gedf-card">
-            <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">[Phòng đại học]</h6>
-                <h6 class="card-subtitle mb-2 text-muted card-subtitle-date">03/02/2021</h6>
-                <hr />
-                <h5 class="card-title">Đăng kí môn học hè</h5>
-                <p class="card-text">Mở ngẫu nhiên đăng kí</p>
-                <a href="#" class="card-link">Xem thông báo</a>
-            </div>
-        </div>
-        <div class="card gedf-card">
-            <div class="card-body">
-                <h6 class="card-subtitle mb-2 text-muted">[Phòng tài chính]</h6>
-                <h6 class="card-subtitle mb-2 text-muted card-subtitle-date">20/04/2021</h6>
-                <hr />
-                <h5 class="card-title">Đăng kí môn học hè</h5>
-                <p class="card-text">Mở ngẫu nhiên đăng kí</p>
-                <a href="#" class="card-link">Xem thông báo</a>
-            </div>
+        <div id="notificationList">
         </div>
     </div>
+
+    <!-- Modal Create Post -->
+    
+    <div class="modal fade" id="PostModal" tabindex="-1" role="dialog" aria-labelledby="Tạo bài đăng" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Đăng thông báo</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="/api/post/create" method="POST" autocomplete="on">
+                    <div class="form-group">
+                        <label for="title">Tiêu đề</label>
+                        <input type="text" class="form-control" id="title" aria-describedby="Tiêu đề bài viết" placeholder="Nhập tiêu đề">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Nội dung</label>
+                        <textarea class="form-control" id="content" rows="3" aria-describedby="Nhập nội dung" placeholder="Nhập nội dung"></textarea>
+                        </div>
+                    <div class="form-group">
+                        <label for="group">Chọn phòng ban</label>
+                        <select multiple class="form-control" id="group" name="group">
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label for="video">Thêm link video</label>
+                        <p id="link_videos"></p>
+                        <a type="button" class="btn btn-primary btn-sm" id="add_video">Thêm link</a>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image">Tải file lên</label>
+                        <input type="file" id="image" class="form-control-file" name="image" accept="image/*" multiple/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="cancelPost">Close</button>
+              <button type="button" id="btn_submit" class="btn btn-primary">Đăng thông báo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <% if(locals.data){ %>
         <p class="data" data-id="<%= data.id %>"></p>
         <p class="data" data-token="<%= data.token %>"></p>
@@ -121,194 +152,10 @@
         <p class="data" data-groupID="<%= flash.groupID %>"></p>
     <% } %>
 </body>
-<script src="./js/methods.js"></script>
-<script src="./js/main.js"></script>
+<script src="/js/methods.js"></script>
+<script src="/js/main.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-
-// const createPostOption = (allow, token, postID) => {
-//     if (!allow ) return ''
-//     return `<div>
-//         <div class="dropdown">
-//             <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-//                 <i class="fa fa-ellipsis-h"></i>
-//             </button>
-//             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
-//                 <a class="dropdown-item" onclick="editPost('${token}', '${postID}')" href="#edit">Chỉnh sửa</a>
-//                 <a class="dropdown-item" onclick="delPost('${token}', '${postID}')" href="#delete">Xoá</a>
-//             </div>
-//         </div>
-//     </div>`
-// }
-// const createPostHtml = ({name, avatar, title, content, myAvatar, userID, myUserID, postID, timeStamp, token, comment, mediaContent}) => {
-//     return `<div class="card gedf-card">
-//         <div class="card-header">
-//             <div class="d-flex justify-content-between align-items-center">
-//                 <div class="d-flex justify-content-between align-items-center">
-//                     <div class="mr-2">
-//                         <img class="rounded-circle" width="45" src="${avatar.startsWith("http") ? avatar : `./${avatar}`}" alt="">
-//                     </div>
-//                     <div class="ml-2">
-//                         <div class="h7 text-muted">${name.replace(/\w/, match => match.toUpperCase())}</div>
-//                     </div>
-//                 </div>
-//                 <!-- Tuy chon cho mo post -->
-//                 ${createPostOption(userID == myUserID, token, postID)}
-//             </div>
-//         </div>
-//         <div class="card-body">
-//             <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> ${getTime(timeStamp)}</div>
-//             <a class="card-link" href="#">
-//                 <h5 class="card-title">${title.replace(/\w/, match => match.toUpperCase())}</h5>
-//             </a>
-//             <p class="card-text">${content.replace(/\w/, match => match.toUpperCase())}</p>
-
-//             ${createEmberHtml(mediaContent)}
-            
-
-
-//         </div>
-//         <!-- Phan comment -->
-//         <div class="card-footer">
-//             <button type="button" class="btn" data-toggle="collapse" data-target="#comment${postID}"><a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a></button>
-//             <div id="comment${postID}" class="collapse comment">
-//                 <hr />
-//                 ${createCommentHtml(comment)}
-//                 <hr />
-//                 <div class="post-comment">
-//                     <img src="${myAvatar.startsWith("http") ? myAvatar : `./${myAvatar}`}" alt="" class="profile-photo-sm comment_avt">
-//                     <input type="text" id="commentContent-${postID}" class="form-control comment_input" placeholder="Post a comment">
-//                     <button type="submit" class="btn btn-profile btn-info btn-commentsibmit" onclick="sendComment('${token}', '${postID}')">Gửi</button>
-//                 </div>
-
-//             </div>
-//         </div>
-//     </div>`
-// }
-// const sendComment = async (token, postID) => {
-//     let content = document.getElementById(`commentContent-${postID}`).value
-//     let {error, data} = await createComment(token, {postID, content})
-//     console.log(error)
-//     console.log(data)
-//     document.getElementById(`commentContent-${postID}`).value = ''
-
-// }
-// const createEmberHtml = (mediaContent) => {
-//     mediaContent = mediaContent.filter(f => f.type != 'video' || (new RegExp(/^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$/).test(f.uri)))
-//     let html = ''
-//     mediaContent.forEach(e => {
-//         if(e.type == 'image'){
-//             html += `<p class="card-text">
-//                         <br><br>
-//                         <img width="100%" height="450" src="./${e.uri}">
-//                     </p>`
-//         }
-//         else{
-//             html += `<p class="card-text">
-//                         <br><br>
-//                         <embed width="100%" height="450" src="${e.uri.replace('watch?v=', 'embed/')}">
-//                     </p>`
-//         }
-//     })
-//     return html
-// }
-// const createCommentHtml = (commentList) => {
-//     let html = ''
-//     commentList.forEach(e => {
-//         html += `<div class="post-comment">
-//                     <img src="${e.user.avatar.startsWith("http") ? e.user.avatar : `./${e.user.avatar}`}" alt="${e.user.name}" class="profile-photo-sm">
-//                     <p class="noidung_comment"><a href="timeline.html" class="profile-link">${e.user.name} </a><i class="em em-laughing"></i> ${e.content} </p>
-//                 </div>`
-//     })
-//     return html
-// }
-// const getTime = (timeStamp) => {
-//     return new Date(timeStamp).toLocaleTimeString()
-//     // TODO cai bien thoi gian thong minh
-// }
-// const delPost = async (token, postID) => {
-//     if(!confirm('Bạn có muốn xóa bài đăng này không')) return
-//     console.log(token)
-//     console.log(postID)
-//     let {error, data} = await deletePost(token, {postID})
-//     console.log(data)
-//     if (error) alert(error)
-//     else alert('Đã xóa thành công')
-//     // location.reload()
-//     $(`.${postID}`).html('')
-// }
-// const editPost = () => {
-//     alert('Chức năng chưa được thực hiện')
-// }
-// window.onload = async () => {
-//     let data = getData()
-//     let allPost = (await getAllPost(data.refreshtoken)).data
-//     allPost = allPost.filter(f => f.user != null)
-//     allPost.forEach(async e => {
-//         let post = document.createElement('div')
-//         post.className = e._id
-//         let comment = (await getComment(data.refreshtoken, {postID: e._id})).data
-//         console.log(comment)
-//         post.innerHTML = createPostHtml({
-//             name: e.user.name,
-//             avatar: e.user.avatar,
-//             title: e.title,
-//             content: e.content,
-//             myAvatar: data.avatar,
-//             userID: e.user._id,
-//             myUserID: data.id,
-//             postID: e._id,
-//             timeStamp: e.timeStamp,
-//             token: data.refreshtoken,
-//             comment: comment,
-//             mediaContent: e.mediaContent,
-//         })
-//         console.log(e.mediaContent)
-//         PostList.appendChild(post)
-//     })
-    
-//     configSocket(data.id)
-//     console.log(allPost)
-//     // alert('Thông báo bên phải chưa hoàn thiện và vì lý do nào đó mà thời gian trong mongoDB bị sai lệnh dẫn tới các bài đăng ko đi theo thứ tự')
-
-// }
-// const configSocket = (id) => {
-//     // Socket cho client
-//     const socket = io()
-//     socket.on('connect', function (){
-//         socket.emit('setUser', id)
-//         socket.on('post', doc => {
-//             // console.log(doc)
-//             let data = getData()
-//             let post = document.createElement('div')
-//             post.className = doc._id
-//             let comment = []
-//             console.log(comment)
-//             post.innerHTML = createPostHtml({
-//                 name: doc.user.name,
-//                 avatar: doc.user.avatar,
-//                 title: doc.title,
-//                 content: doc.content,
-//                 myAvatar: data.avatar,
-//                 userID: doc.user._id,
-//                 myUserID: data.id,
-//                 postID: doc._id,
-//                 timeStamp: doc.timeStamp,
-//                 token: data.refreshtoken,
-//                 comment: comment,
-//                 mediaContent: doc.mediaContent,
-//             })
-//             $('#PostList').prepend(post)
-//         })
-//         socket.on('comment', doc => {
-//             // console.log(doc)
-//             let postID = doc.post._id
-//             let parent = $(`#comment${postID} .post-comment`)
-//             $(parent[0]).parent().prepend( $(createCommentHtml([doc]))[0] )
-            
-//         })
-//     })
-// }
 
 </script>
 

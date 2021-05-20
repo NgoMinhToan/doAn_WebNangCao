@@ -1,9 +1,9 @@
 const {check, validationResult} = require('express-validator')
-const Comment = require('../models/commentModel')
-const Post = require('../models/postModel')
-const Group = require('../models/groupUserModel')
-const MediaContent = require('../models/mediaModel')
-const Users = require('../models/userModel')
+const Comment = require('../models/CommentModel')
+const Post = require('../models/PostModel')
+const Group = require('../models/GroupUserModel')
+const MediaContent = require('../models/MediaModel')
+const Users = require('../models/UserModel')
 const socket = require('../socket')
 const mongoose = require('mongoose')
 const getGroup = async (group) => {
@@ -119,6 +119,41 @@ module.exports = {
             let {page, quantity} = req.body
 
             return Post.find().sort({timeStamp: -1}).populate('user toGroup mediaContent', '-password -authID -email').skip((page-1)*quantity).limit((+quantity)).exec()
+            .then(result => res.json({success: true, result}))
+            .catch(err => res.json({success: false, msg: err.toString()}))
+        },
+        getImportant: async (req, res) => {
+            let {page, quantity} = req.body
+
+            return Post.find().sort({timeStamp: -1})
+            .populate({
+                path: 'toGroup', 
+                select: 'name _id',
+                match: {'name': {$ne: 'Other'}}
+            })
+            .populate({
+                path: 'user', 
+                select: 'role',
+                match: {'role': 'Admin'}
+            })
+            .where('toGroup').ne(null)
+            .select('-mediaContent')
+            .skip((page-1)*quantity).limit((+quantity)).exec()
+            .then(result => res.json({success: true, result}))
+            .catch(err => res.json({success: false, msg: err.toString()}))
+        },
+        getFacultyImportant: async (req, res) => {
+            let {page, quantity, groupID} = req.body
+
+            return Post.find({toGroup: groupID}).sort({timeStamp: -1})
+            .populate({
+                path: 'toGroup', 
+                select: 'name _id',
+                match: {'name': {$ne: 'Other'}, '_id': groupID}
+            })
+            .where('toGroup').ne(null)
+            .select('-mediaContent')
+            .skip((page-1)*quantity).limit((+quantity)).exec()
             .then(result => res.json({success: true, result}))
             .catch(err => res.json({success: false, msg: err.toString()}))
         },

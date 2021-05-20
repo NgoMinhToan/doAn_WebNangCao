@@ -1,10 +1,7 @@
 
 
 render cac trang thông báo theo phòng ban
-render profile
-chỉnh thông tin profile
+render thong bao theo id
 
-load bai post và thực hiện các chức năng
-load comment và các chức năng
-
-them avatar
+các chức năng post (sua), (them sua bang ajax) real time
+các chức năng comment (xoa, sua)

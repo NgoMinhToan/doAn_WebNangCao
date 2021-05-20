@@ -36,7 +36,7 @@ userSchema.pre('save', function (next) {
         }
     })
 })
-const Group = require('../models/groupUserModel')
+const Group = require('./GroupUserModel')
 userSchema.pre('deleteOne', async function (next) {
     let id = mongoose.Types.ObjectId(this._conditions._id)
     return Group.updateMany({leader: id}, {leader: null}).exec()

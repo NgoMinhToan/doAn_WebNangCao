@@ -1,4 +1,4 @@
-const messModel = require('./models/messageModel')
+const messModel = require('./models/MessageModel')
 // Cấu hình socket
 class ConfigSocket {
     static http = require('http')

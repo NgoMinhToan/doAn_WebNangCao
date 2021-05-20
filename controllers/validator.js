@@ -1,11 +1,12 @@
 const {check, validationResult} = require('express-validator')
-const { exists } = require('../models/userModel')
+const { exists } = require('../models/UserModel')
 
 const validToken = check('token').exists().withMessage('Không tìm thấy token').notEmpty().withMessage('Mã token không hợp lệ')
+const validGroupID = check('groupID').exists().withMessage('Không tìm thấy groupID').notEmpty().withMessage('Không để trống groupID')
 
 module.exports = {
     validToken,
-
+    validGroupID,
     validator_login: [
         check('email').exists().withMessage('Vui lòng nhập Email người dùng')
         .notEmpty().withMessage('Không được để trống Email')
@@ -15,7 +16,6 @@ module.exports = {
         .notEmpty().withMessage('Không được để trống mật khẩu')
         .isLength({min: 6}).withMessage('Mật khẩu phải từ 6 ký tự')
     ],
-
     validator_register: [
         check('name').exists().withMessage('Vui lòng nhập tên người dùng')
         .notEmpty().withMessage('Không được để trống tên người dùng'),
@@ -41,7 +41,6 @@ module.exports = {
         .notEmpty().withMessage('Vui lòng chọn phòng ban'),
 
     ],
-
     validCreatePost: [
         validToken,
         check('title').exists().withMessage('Không tìm thấy tiêu đề')
@@ -94,6 +93,6 @@ module.exports = {
             }else
                 return true
         }),
-    ]
+    ],
     
 }

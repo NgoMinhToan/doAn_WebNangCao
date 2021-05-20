@@ -29,6 +29,7 @@ MediaSchema.pre('insertMany', function(next, document){
             i++
         }
         fs.renameSync(doc.uri, newPath)
+        newUri = `/${newUri}`
         doc.path = newPath
         doc.uri = newUri
         return doc
@@ -53,6 +54,7 @@ MediaSchema.pre('save', function(next){
         i++
     }
     fs.renameSync(doc.uri, newPath)
+    newUri = `/${newUri}`
     console.log(newPath)
     console.log(newUri)
     doc.path = newPath

@@ -11,17 +11,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Arbutus" rel="stylesheet">
 </head>
-<link href="../css/style.css" rel="stylesheet" />
+<link href="/css/style.css" rel="stylesheet" />
 
 <body>
 
     <div class="container">
         <form action=" " class="form-login " method="POST " autocomplete="on ">
-            <% if(data.avatar.startsWith("http")){ %>
-                <img src="<%=data.avatar%>" alt="Avatar" class="avatar">
-            <% }else{ %>
-                <img src="../../<%=data.avatar%>" alt="Avatar" class="avatar">
-            <% } %>
+            <img src="<%=data.avatar%>" alt="Avatar" class="avatar">
             <hr>
             <div class="profiledata ">
                 <h5 class="profiledata_1 label_editprofile_phongkhoa">Tên </h5>

@@ -1,7 +1,7 @@
 const {check, validationResult} = require('express-validator')
 const { studentRole , defaultAvatar} = require('../config')
-const MediaContent = require('../models/mediaModel')
-const Users = require('../models/userModel')
+const MediaContent = require('../models/MediaModel')
+const Users = require('../models/UserModel')
 const {hashPassword} = require('../methods')
 // const notify = (req, res, uri, {code, error} )=>{
 //     req.flash('code', code || '')
@@ -90,7 +90,7 @@ module.exports = {
                 req.flash('success', '0')
                 req.flash('msg', 'Cập nhật thành công')
 
-                return res.redirect('back')
+                return res.redirect('../../')
             } catch (e) {
                 console.log(e.toString())
                 req.flash('success', '-1')
@@ -105,7 +105,7 @@ module.exports = {
                 let result = await Users.updateOne(req.user, {password: hashPass})
                 req.flash('success', '0')
                 req.flash('msg', 'Cập nhật thành công')
-                return res.redirect('back')
+                return res.redirect('../../')
             } catch (e) {
                 console.log(e.toString())
                 req.flash('success', '-1')

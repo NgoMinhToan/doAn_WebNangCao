@@ -1,4 +1,4 @@
-const model = require('../models/userModel')
+const model = require('../models/UserModel')
 const passport = require('passport')
 
 module.exports = {

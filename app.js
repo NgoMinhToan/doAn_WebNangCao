@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-
+app.enable("trust proxy") // direct callback to https instead of http :))
 app.set('view engine', 'ejs')
 
 const cors = require('cors')
@@ -33,7 +33,7 @@ const flash = require('express-flash')
 app.use(flash())
 
 // xác minh đã đăng nhập và phải có thông tin user trong session
-let {isLogin, isLogin_json, checkToken} = require('./methods')
+let {isLogin, isLogin_json, refreshToken_f5} = require('./methods')
 const { notify } = require('./socket')
 
 
@@ -42,22 +42,22 @@ app.get('/', isLogin, (req, res) => {
     res.redirect('/main')
 })
 
-app.use('/main', isLogin, require('./routers/mainRoute'))
+app.use('/main', isLogin, refreshToken_f5, require('./routers/MainRoute'))
 
 
-app.use('/notification', isLogin, require('./routers/notificationRoute'))
+app.use('/notification', isLogin, require('./routers/NotificationRoute'))
 
 app.get('/dangbai', (req, res) => {
     res.render('dangbai')
 })
 
-app.use('/admin', require('./routers/admin'))
+app.use('/admin', require('./routers/Admin'))
 
-app.use('/api', require('./routers/api'))
+app.use('/api', require('./routers/Api'))
 
 app.use('/auth', require('./routers/OAuth'))
 
-app.use('/user', require('./routers/userRoute'))
+app.use('/user', require('./routers/UserRoute'))
 
 
 

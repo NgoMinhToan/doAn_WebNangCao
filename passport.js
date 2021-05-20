@@ -1,4 +1,4 @@
-const userModel = require('./models/userModel')
+const userModel = require('./models/UserModel')
 const passport = require('passport')
 const {createToken} = require('./methods')
 const localStratery = require('passport-local').Strategy

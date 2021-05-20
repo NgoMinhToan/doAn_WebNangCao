@@ -1,5 +1,5 @@
 // Cấu hình admin nếu chưa tồn tại
-const userModel = require('./models/userModel')
+const userModel = require('./models/UserModel')
 const {adminAccount, groupUser} = require('./config')
 userModel.find({name: 'Admin', role: 'Admin'}).exec()
 .then(u =>{
@@ -19,7 +19,7 @@ userModel.find({name: 'Admin', role: 'Admin'}).exec()
 })
 
 // Thêm các phòng ban nếu chưa tồn tại
-const groupUserModel = require('./models/groupUserModel')
+const groupUserModel = require('./models/GroupUserModel')
 groupUserModel.find().exec()
 .then(u => {
     if (u.length == 0){

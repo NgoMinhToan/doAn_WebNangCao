@@ -1,0 +1,80 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.cell img{
+    width: 100%;
+    object-fit: contain;
+}
+.cell{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: .3s all;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+.clearfix:after{
+    clear: both;
+    content: ".";
+    display: block;
+    width: 0px;
+    height: 0px;
+}
+.user-info{
+    transition: .3s all;
+    position: absolute;
+    bottom: 0%;
+}
+img{
+    transition: .3s all;
+}
+.cell:hover img{
+    width: 80%;
+    
+}
+.cell:hover .user-info{
+    font-size: large;
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    color: rgb(0, 0, 0);
+}
+.cell:hover .blur{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+}
+.list-item{
+    transition: .3s all;
+    height: 100%;
+}
+
+.textHover::before {  
+  transform: scaleX(0);
+  transform-origin: bottom right;
+}
+
+.textHover:hover::before {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.textHover::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  inset: 0 0 0 0;
+  background: hsl(200 100% 80%);
+  z-index: -1;
+  transition: transform .3s ease;
+}

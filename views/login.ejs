@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Arbutus" rel="stylesheet">
+    <script src="/js/notify.min.js" ></script>
 </head>
 <link href="/css/style.css" rel="stylesheet" />
 
@@ -51,7 +52,20 @@
             <% } %>
         </form>
     </div>
+    <% if(locals.success){ %>
+        <p class="data" data-success="<%= success %>"></p>
+        <p class="data" data-msg="<%= msg %>"></p>
+    <% } %>
 
 </body>
+<script src="/js/methods.js"></script>
+<script>
+    window.onload = () => {
+        let {success, msg} = getData()
+        if(success == '-1') $.notify(msg, "error");
+        else $.notify(msg, "success");
+
+    }
+</script>
 
 </html>

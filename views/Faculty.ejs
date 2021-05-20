@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Thông báo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/faculty.css" media="screen" /> 
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/notification">Thông Báo</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="#">Trang chủ</a></li>
+          <li><a href="/">Mạng xã hội</a></li>
+          <li><a href="/user/logout">Đăng xuất</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="profile-sidebar textHover">
+          <div class="profile-userpic">
+
+            <img src="<%=data.avatar%>" class="img-responsive" alt="Thông tin cá nhân">
+
+          </div>
+          <div class="profile-usertitle">
+            <b class="profile-name"><%= data.name %></b>
+            <div class="profile-mssv"><%= data.email.replace(/\@(\w+.+)/ig, '') %></div>
+          </div>
+          <div class="profile-userbuttons">
+          </div>
+          <div class="profile-usermenu">
+            <ul class="nav">
+              <li class="active">
+                <a href="/user/profile/edit"> <i class="glyphicon glyphicon-info-sign"></i> Cập nhật thông tin cá nhân </a>
+              <li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-9 first-item">
+
+        <div id="FacultyList" class = "row">
+          <% if(locals.faculty && faculty.length > 0){ %>
+            <% faculty.forEach(e => { %>
+              <% if(e.name != 'Other'){ %>
+                <div class = "col-lg-4 col-md-4 col-sm-6 list-item clearfix">
+                  <a href="/notification/faculty/<%= e._id %>">
+                    <div class = "cell">
+                      <img src="<%= e.avatar %>"/>
+                      <div class="blur"></div>
+                      <div class = "user-info">
+                          <span class="title"><%= e.name %></span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              <% } %>
+            <% }) %>
+          <% } %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <p class="jumbotron text-center">Đại học Tôn Đức Thắng</p>
+</body>
+<script src="/js/faculty.js"></script>
+
+</html>

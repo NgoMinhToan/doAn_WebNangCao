@@ -11,12 +11,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Arbutus" rel="stylesheet">
 </head>
-<link href="../css/style.css" rel="stylesheet" />
+<link href="/css/style.css" rel="stylesheet" />
 
 <body>
 
     <div class="container">
-        <form action="#" class="form-login" method="POST" autocomplete="on">
+        <form action="/api/post/create" class="form-login" method="POST" autocomplete="on">
             <div class="caption-noticreate">
                 <label><h3>Đăng thông báo</h3></label>
             </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="profiledata ">
                 <h5 class="profiledata_1 label_editprofile_phongkhoa">Nội dung </h5>
-                <input class="profiledata_1 input_editprofile_phongkhoa input-editcreate-noti" type=" text " id="content" name="content"><br><br>
+                <textarea rows="10" class="profiledata_1 input_editprofile_phongkhoa input-editcreate-noti" type=" text " id="content" name="content"> </textarea><br><br>
             </div>
             <div class="profiledata ">
                 <h5 class="profiledata_1 label_editprofile_phongkhoa">Phòng ban </h5>
@@ -88,7 +88,7 @@
     <p class="data" data-password="<%= flash.password %>"></p>
     <p class="data" data-groupID="<%= flash.groupID %>"></p>
 <% } %>
-<script src="../js/methods.js"></script>
+<script src="/js/methods.js"></script>
 <script>
     window.onload = async () => {
     let {refreshtoken: token, id, role} = getData()

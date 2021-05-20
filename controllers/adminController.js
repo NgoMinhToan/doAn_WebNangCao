@@ -1,6 +1,6 @@
 const {check, validationResult} = require('express-validator')
-const User = require('../models/userModel')
-const Group = require('../models/groupUserModel')
+const User = require('../models/UserModel')
+const Group = require('../models/GroupUserModel')
 const mongoose = require('mongoose')
 const {instructorRole} = require('../config')
 module.exports = {
